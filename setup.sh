@@ -19,6 +19,6 @@ cp etc/ssh/sshd_config /etc/ssh/sshd_config
 service ssh restart
 
 # Clean up installation files
-cd /tmp && rm -rf cyclone-cyclone-pam
+cd /tmp && rm -rf ssh-aad
 
 cd ~
