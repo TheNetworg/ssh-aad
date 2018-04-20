@@ -3,12 +3,12 @@
 # Install pip
 # Installs python_pam.so in /lib/security
 apt-get update
-apt-get install python-dev python-pip libpam-python git -y --no-install-recommends
+apt-get install python-dev python-pip libpam-python python-setuptools git -y --no-install-recommends
 
 # Clone and install python package dependencies
 cd /tmp
 git clone https://github.com/thenetworg/ssh-aad && cd ssh-aad
-pip install -r requirements.pip
+pip install -r requirements.txt
 
 # Install python script and config
 cp usr/local/bin/ssh-aad_pam.py /usr/local/bin/ssh-aad_pam.py
