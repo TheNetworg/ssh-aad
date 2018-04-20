@@ -3,7 +3,7 @@
 # Install pip
 # Installs python_pam.so in /lib/security
 apt-get update
-apt-get install python-dev python-pip libpam-python python-setuptools git -y --no-install-recommends
+apt-get install python-dev python-pip libpam-python git -y
 
 # Clone and install python package dependencies
 cd /tmp
