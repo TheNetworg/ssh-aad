@@ -17,4 +17,4 @@ Since this is really just a PoC, this needs a lot of improvements:
 
 # Notes
 * Tested on Ubuntu 17.10
-* Heavily nspired by: https://github.com/cyclone-project/cyclone-python-pam/
+* Heavily inspired by: https://github.com/cyclone-project/cyclone-python-pam/
