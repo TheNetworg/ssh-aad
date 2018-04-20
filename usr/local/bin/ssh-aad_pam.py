@@ -1,7 +1,9 @@
 #!/usr/bin/python
-import adal
-import json
 from configobj import ConfigObj
+import adal
+import pwd
+import json
+import os
 
 context = None
 config = None
@@ -81,7 +83,20 @@ def pam_sm_authenticate(pamh, flags, argv):
         # local_username = 'hajekj'
         if local_username == '':
             return pamh.PAM_USER_UNKNOWN
+        
+        username = local_username
+        usernameParts = username.split('@')
+        usernameSanitized = '_'.join(usernameParts)
 
+        alias = None
+        domain = None
+        if len(usernameParts) == 2:
+            alias = usernameParts[0]
+            domain = usernameParts[1]
+        else:
+            # Username is not UPN, fail PAM authentication.
+            return pamh.PAM_USER_UNKNOWN
+        
         cnf = load_config(DEFAULT_GLOBAL_CONFIG_PATH)
         setup_adal(cnf)
 
@@ -92,7 +107,19 @@ def pam_sm_authenticate(pamh, flags, argv):
 
         token = wait_for_token(code, cnf)
 
-        # TODO: Parse token, create user, add to groups etc.
+        if username != token['userId']:
+            # Username coming from AAD is different from the supplied username
+            return pamh.PAM_USER_UNKNOWN
+
+        try:
+            pwd.getpwnam(username)
+        except KeyError:
+            log('user doesn\'t exist create new')
+            # https://askubuntu.com/questions/94060/run-adduser-non-interactively
+            os.system('adduser --disabled-password --gecos "" --force-badname '+username)
+            os.system('addgroup --force-badname '+username+' sudo')
+
+        # TODO: Check if user exists, if not, create one
 
         if pamh is not None:
             if token is not None:

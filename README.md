@@ -10,11 +10,19 @@ Managing user access to Linux machines can be very hard. For example when you ha
 1. Run following as *sudo*: `wget -O - https://raw.githubusercontent.com/thenetworg/ssh-aad/master/setup.sh | sh`
 1. Configure the *AUTHORITY* and *CLIENT_ID* in `/etc/ssh-aad/ssh-aad.conf`
 
+## Logging in
+1. Perform standard SSH login except for using your UPN as username like: `ssh jan.hajek@thenetw.org@aadssh.labs.tntg.cz`
+1. Your account will be created on first login, which will then fail (this is currently an unresolved bug)
+1. Every other login is going to succeed (assuming you authenticate successfully)
+
+## Accessing as sudo
+If you try to enter sudo mode with AAD authenticated user, you are going to be prompted for password, which you obviously don't have. The solution is to modify `/etc/sudoers` file to allow login without password like so: `%sudo   ALL=(ALL:ALL) NOPASSWD:ALL`.
+
 # Future
 Since this is really just a PoC, this needs a lot of improvements:
-- Create dynamically user profiles, grant them rights to act as sudo
 - Add support for using a single client id for multiple VMs based on user's access to the machine in Azure Portal (using Azure Management API)
+- Improve sudo access security - add support for enforcing MFA for initial authentication or something similar maybe
 
 # Notes
-* Tested on Ubuntu 17.10
-* Heavily inspired by: https://github.com/cyclone-project/cyclone-python-pam/
+- Tested on Ubuntu 17.10
+- Heavily inspired by: https://github.com/cyclone-project/cyclone-python-pam/
