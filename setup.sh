@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 # Install python script and config
 cp usr/local/bin/ssh-aad_pam.py /usr/local/bin/ssh-aad_pam.py
-mkdir /etc/ssh-aad/
+mkdir -p /etc/ssh-aad/
 cp etc/ssh-aad/ssh-aad.conf /etc/ssh-aad/ssh-aad.conf
 cp etc/pam.d/sshd /etc/pam.d/sshd
 cp etc/ssh/sshd_config /etc/ssh/sshd_config
