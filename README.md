@@ -22,6 +22,7 @@ If you try to enter sudo mode with AAD authenticated user, you are going to be p
 Since this is really just a PoC, this needs a lot of improvements:
 - Add support for using a single client id for multiple VMs based on user's access to the machine in Azure Portal (using Azure Management API)
 - Improve sudo access security - add support for enforcing MFA for initial authentication or something similar maybe
+- Prevent users from adding their own SSH key for direct access
 
 # Notes
 - Tested on Ubuntu 17.10
