@@ -1,5 +1,7 @@
 > This is rather a Proof of Concept rather than a fully working code.
 
+This is now deprecated in favor of Microsoft's own extension - https://docs.microsoft.com/en-us/azure/virtual-machines/linux/login-using-aad
+
 # Motivation
 Managing user access to Linux machines can be very hard. For example when you have to handle SSH key distribution, remove user access etc. If your organization already uses Azure Active Directory, you can make use of this authentication plugin to be able to authenticate using Azure AD. Thanks to that, you will have all the logs in Azure AD centrally, and you can also enforce Conditional Access rules to the users.
 
